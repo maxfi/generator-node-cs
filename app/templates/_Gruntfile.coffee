@@ -60,10 +60,18 @@ module.exports = (grunt) ->
         commit : false
         push   : false
 
-    # Deal with coffeescript concatenation and compiling
+    # Deal with coffeescript compilation
     coffee:
-      options: join: true
       dist:
-        files:
-          'dist/<%= slugName %>.js' : 'src/**/*.coffee'
+        options:
+          bare: true
+          sourceMap: true
+        files: [
+          expand: true     # Enable dynamic expansion.
+          cwd: 'src/'      # Src matches are relative to this path.
+          src: ['**/*.coffee'] # Actual pattern(s) to match.
+          dest: 'dist/'   # Destination path prefix.
+          ext: '.js'   # Dest filepaths will have this extension.
+          extDot: 'first'   # Extensions in filenames begin after the first dot
+        ]
 
